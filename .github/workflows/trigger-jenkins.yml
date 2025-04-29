@@ -1,0 +1,13 @@
+name: Trigger Jenkins Job
+
+on:
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Jenkins Job
+        run: |
+          curl -X POST "${{ values.jenkinsUrl }}/job/${{ values.jobName }}/build" \
+            --user "${{ values.jenkinsUser }}:${{ values.jenkinsToken }}"
