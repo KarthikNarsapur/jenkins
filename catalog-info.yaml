@@ -5,6 +5,7 @@ metadata:
   description: Jenkins freestyle job for demo project
   annotations:
     jenkins.io/job-full-name: http://localhost:8080/job/demo-2/
+    jenkins.io/job-url: http://localhost:8080/job/demo-2/
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: KarthikNarsapur/jenkins
 spec:
