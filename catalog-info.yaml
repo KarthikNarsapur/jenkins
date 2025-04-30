@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: demo
+  description: Jenkins freestyle job for demo project
+  annotations:
+    jenkins.io/job-full-name: demo
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: KarthikNarsapur/jenkins
+spec:
+  type: service
+  lifecycle: experimental
+  owner: user:guest
