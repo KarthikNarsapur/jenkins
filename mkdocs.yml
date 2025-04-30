@@ -1,0 +1,6 @@
+site_name: Jenkins Demo Job
+nav:
+  - Home: index.md
+
+plugins:
+  - techdocs-core
