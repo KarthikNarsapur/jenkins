@@ -1,0 +1,46 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: jenkins-pipeline-job
+  title: Jenkins Pipeline Job Creator
+  description: Creates a Jenkins job from GitHub repo using an existing Jenkinsfile
+spec:
+  owner: devops-team
+  type: service
+
+  parameters:
+    - title: Jenkins Job Details
+      required: [jobName, githubRepoUrl]
+      properties:
+        jobName:
+          type: string
+          title: Jenkins Job Name
+        githubRepoUrl:
+          type: string
+          title: GitHub Repo URL (e.g., https://github.com/org/repo.git)
+        branch:
+          type: string
+          title: Branch
+          default: main
+        scriptPath:
+          type: string
+          title: Jenkinsfile Path
+          default: Jenkinsfile
+
+  steps:
+    - id: generate-job-config
+      name: Generate Jenkins job config
+      action: fetch:template
+      input:
+        url: jenkins/template.yaml
+        values:
+          githubRepoUrl: ${{ parameters.githubRepoUrl }}
+          branch: ${{ parameters.branch }}
+          scriptPath: ${{ parameters.scriptPath }}
+
+    - id: create-jenkins-job
+      name: Create Jenkins Job
+      action: jenkins:job:create
+      input:
+        configPath: jenkins/jenkinsfile
+        jobName: ${{ parameters.jobName }}
