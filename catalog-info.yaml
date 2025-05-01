@@ -11,4 +11,5 @@ metadata:
 spec:
   type: service
   lifecycle: experimental
-  owner: KarthikNarsapur
+  owner: user:default/karthik.n
+
