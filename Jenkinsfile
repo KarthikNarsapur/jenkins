@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from the repository
-                git branch: "${BRANCH_NAME}", url: "${GITHUB_REPO_URL}"
+                git branch: "${branch}", url: "${githubRepoUrl}"
             }
         }
 
