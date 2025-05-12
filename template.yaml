@@ -26,6 +26,10 @@ spec:
           type: string
           title: Jenkinsfile Path
           default: Jenkinsfile
+        jenkinsHost:
+          type: string
+          description: Jenkins base URL
+          default: http://localhost:8080
 
   steps:
     - id: generate-job-config
