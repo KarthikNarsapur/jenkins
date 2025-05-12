@@ -3,7 +3,7 @@ kind: Template
 metadata:
   name: jenkins-pipeline-job
   title: Jenkins Pipeline Job Creator
-  description: Creates a Jenkins job from GitHub repo using an existing Jenkinsfile
+  description: Creates a Jenkins pipeline job from a GitHub repo using an existing Jenkinsfile
 spec:
   owner: devops-team
   type: service
@@ -29,22 +29,23 @@ spec:
         jenkinsHost:
           type: string
           description: Jenkins base URL
-          default: http://localhost:8080
-
+          default: localhost:8080
   steps:
     - id: generate-job-config
-      name: Generate Jenkins job config
+      name: Generate Jenkins job config XML
       action: fetch:template
       input:
-        url: jenkins/template.yaml
+        url: ./jenkins/jenkins
+        targetPath: ./generate-job-config
         values:
           githubRepoUrl: ${{ parameters.githubRepoUrl }}
           branch: ${{ parameters.branch }}
           scriptPath: ${{ parameters.scriptPath }}
 
     - id: create-jenkins-job
-      name: Create Jenkins Job
-      action: jenkins:trigger
+      name: Create Jenkins Job in Jenkins
+      action: jenkins:create-job
       input:
-        configPath: jenkins/jenkinsfile
+        host: ${{ parameters.jenkinsHost }}
         jobName: ${{ parameters.jobName }}
+        configXmlPath: ./generate-job-config/job-config-template.xml
