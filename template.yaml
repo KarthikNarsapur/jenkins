@@ -40,7 +40,7 @@ spec:
 
     - id: create-jenkins-job
       name: Create Jenkins Job
-      action: jenkins:job:create
+      action: jenkins:trigger
       input:
         configPath: jenkins/jenkinsfile
         jobName: ${{ parameters.jobName }}
