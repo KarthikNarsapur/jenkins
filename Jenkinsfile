@@ -1,20 +1,49 @@
 pipeline {
     agent any
-    parameters {
-        string(name: 'GITHUB_REPO_URL', defaultValue: 'https://github.com/example/repo.git', description: 'GitHub Repository URL')
-        string(name: 'BRANCH', defaultValue: 'main', description: 'Git branch')
-        string(name: 'SCRIPT_PATH', defaultValue: 'Jenkinsfile', description: 'Path to the Jenkinsfile')
+
+    environment {
+        // You can define environment variables here if needed
     }
+
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    // Using the parameters set above
-                    env.GITHUB_REPO_URL = params.GITHUB_REPO_URL
-                    env.BRANCH = params.BRANCH
-                    env.SCRIPT_PATH = params.SCRIPT_PATH
-                }
+                // Checkout the code from the repository
+                git branch: "${BRANCH_NAME}", url: "${GITHUB_REPO_URL}"
             }
+        }
+
+        stage('Build') {
+            steps {
+                // Run your build or any other command
+                echo 'Building the project...'
+                sh './build.sh'  // This assumes you have a build.sh script
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run tests if any
+                echo 'Running tests...'
+                sh './run-tests.sh'  // This assumes you have a run-tests.sh script
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Deploy the project
+                echo 'Deploying the project...'
+                sh './deploy.sh'  // This assumes you have a deploy.sh script
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build was successful!'
+        }
+        failure {
+            echo 'Build failed.'
         }
     }
 }
