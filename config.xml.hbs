@@ -5,19 +5,19 @@
     <scm class="hudson.plugins.git.GitSCM" plugin="git">
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>{{ githubRepoUrl }}</url>
+          <url>${GITHUB_REPO_URL}</url>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
         <hudson.plugins.git.BranchSpec>
-          <name>{{ branch }}</name>
+          <name>${BRANCH}</name>
         </hudson.plugins.git.BranchSpec>
       </branches>
       <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>{{ scriptPath }}</scriptPath>
+    <scriptPath>${SCRIPT_PATH}</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>
